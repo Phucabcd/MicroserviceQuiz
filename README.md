@@ -1,6 +1,6 @@
 <h1 align="center" style="font-weight: bold;">Quiz💻</h1>
 
-<p align="center">Dự án làm về đề tài ôn tập quiz các ngôn ngữ Java, C++, Python</p>
+<p align="center">Dự án làm về đề tài ôn tập quiz các ngôn ngữ lập trình</p>
 
 <p align="center">
   hiện tại đang trong quá trình phát triển...
