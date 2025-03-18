@@ -3,6 +3,7 @@ package com.phucabcd.quizapp.service;
 import com.phucabcd.quizapp.entity.Question;
 import com.phucabcd.quizapp.entity.QuestionWrapper;
 import com.phucabcd.quizapp.entity.Quiz;
+import com.phucabcd.quizapp.entity.response.ResponseQuiz;
 import com.phucabcd.quizapp.repo.QuestionRepo;
 import com.phucabcd.quizapp.repo.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,19 @@ public class QuizService {
         }
 
         return new ResponseEntity<>(questionForUser, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> submitQuiz(Integer id, List<ResponseQuiz> responses) {
+        Quiz quiz = quizRepo.findById(id).get();
+        List<Question> questions = quiz.getQuestions();
+        int right = 0;
+        int i = 0;
+        for (ResponseQuiz r : responses) {
+            if(r.getResponse().equals(questions.get(i).getRightAnswer()))
+                right++;
+
+            i++;
+        }
+        return new ResponseEntity<>(right, HttpStatus.OK);
     }
 }

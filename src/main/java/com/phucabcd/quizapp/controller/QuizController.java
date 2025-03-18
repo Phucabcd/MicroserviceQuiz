@@ -2,6 +2,7 @@ package com.phucabcd.quizapp.controller;
 
 import com.phucabcd.quizapp.entity.QuestionWrapper;
 import com.phucabcd.quizapp.entity.Quiz;
+import com.phucabcd.quizapp.entity.response.ResponseQuiz;
 import com.phucabcd.quizapp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class QuizController {
     @GetMapping("get/{id}")
     public ResponseEntity<List<QuestionWrapper>> getQuizId(@PathVariable Integer id) {
         return quizService.getQuizById(id);
+    }
+
+    @PostMapping("submit/{id}")
+    public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<ResponseQuiz> responses) {
+        return quizService.submitQuiz(id, responses);
     }
 
 }
