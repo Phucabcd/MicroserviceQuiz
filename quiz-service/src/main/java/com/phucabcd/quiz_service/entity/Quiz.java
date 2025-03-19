@@ -18,7 +18,7 @@ public class Quiz {
     Integer id;
     String title;
 
-    @ManyToMany
-    List<Question> questions;
+    @ElementCollection
+    List<Integer> questionIds;
 
 }

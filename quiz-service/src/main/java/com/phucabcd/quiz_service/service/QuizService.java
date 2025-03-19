@@ -4,6 +4,7 @@ import com.phucabcd.quiz_service.entity.QuestionWrapper;
 import com.phucabcd.quiz_service.entity.Quiz;
 import com.phucabcd.quiz_service.entity.response.ResponseQuiz;
 //import com.phucabcd.quiz_service.repo.QuestionRepo;
+import com.phucabcd.quiz_service.feign.QuizFeign;
 import com.phucabcd.quiz_service.repo.QuizRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +22,18 @@ public class QuizService {
     @Autowired
     QuizRepo quizRepo;
 
-//    @Autowired
-//    QuestionRepo questionRepo;
+    @Autowired
+    QuizFeign quizFeign;
 
     public ResponseEntity<String> createQuiz(String category, int numQ, String title) {
 
+        List<Integer> questions = quizFeign.generateQuestionsForQuiz(category, numQ).getBody();
+        Quiz quiz = new Quiz();
+        quiz.setTitle(title);
+        quiz.setQuestionIds(questions);
+        quizRepo.save(quiz);
 
-//             List<Integer> questions = // call the generate url - RestTemplate http://localhost:8080/question/generate
-//
-//            Quiz quiz = new Quiz();
-//            quiz.setTitle(title);
-//            quiz.setQuestions(questions);
-//            quizRepo.save(quiz);
-            return new ResponseEntity<>("Succes", HttpStatus.CREATED);
+        return new ResponseEntity<>("Succes", HttpStatus.CREATED);
     }
 
     public ResponseEntity<List<QuestionWrapper>> getQuizById(Integer id) {
